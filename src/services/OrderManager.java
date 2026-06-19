@@ -1,31 +1,30 @@
 package services;
 
 import entity.Product;
+import services.discount.IDiscountStrategy;
 
 public class OrderManager {
-    public void processOrder(Product product, int quantity, String discountType, String userEmail) throws Exception {
-        if (product.stock < quantity) {
-            throw new Exception("Stock insuffisant pour " + product.name);
-        }
+    private final InventoryManager inventoryManager;
+    private final InvoiceGenerator invoiceGenerator;
+    private final NotificationService notificationService;
 
-        float total = product.price * quantity;
-        if (discountType.equals("VIP")) {
-            total = total * 0.80f;
-        } else if (discountType.equals("BLACK_FRIDAY")) {
-            total = total * 0.50f;
-        }
-
-        product.stock -= quantity;
-
-        generatePdfInvoice(userEmail, total);
-        sendEmail(userEmail, "Votre commande de " + total + "€ est confirmée.");
+    public OrderManager(InventoryManager inventoryManager,
+                        InvoiceGenerator invoiceGenerator,
+                        NotificationService notificationService) {
+        this.inventoryManager = inventoryManager;
+        this.invoiceGenerator = invoiceGenerator;
+        this.notificationService = notificationService;
     }
 
-    private void generatePdfInvoice(String email, float total) {
-        System.out.println("Génération de la facture PDF pour " + email + " d'un montant de " + total + "€");
-    }
+    public void processOrder(Product product, int quantity,
+                             IDiscountStrategy discountStrategy, String userEmail) throws Exception {
+        inventoryManager.checkStock(product, quantity);
 
-    private void sendEmail(String email, String message) {
-        System.out.println("Email envoyé à " + email + " : " + message);
+        float subtotal = product.price * quantity;
+        float total = discountStrategy.applyDiscount(subtotal);
+
+        inventoryManager.deductStock(product, quantity);
+        invoiceGenerator.generatePdfInvoice(userEmail, total);
+        notificationService.sendEmail(userEmail, "Votre commande de " + total + "€ est confirmée.");
     }
 }
