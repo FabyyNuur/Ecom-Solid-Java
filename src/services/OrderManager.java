@@ -25,6 +25,6 @@ public class OrderManager {
 
         inventoryManager.deductStock(product, quantity);
         invoiceGenerator.generatePdfInvoice(userEmail, total);
-        notificationService.sendEmail(userEmail, "Votre commande de " + total + "€ est confirmée.");
+        notificationService.sendEmail(userEmail, "Votre commande de " + total + "€ est confirmée. Merci pour votre achat ! \n");
     }
 }
