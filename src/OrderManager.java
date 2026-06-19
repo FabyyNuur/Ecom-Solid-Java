@@ -1,6 +1,4 @@
-package services;
 
-import entity.Product;
 
 public class OrderManager {
     public void processOrder(Product product, int quantity, String discountType, String userEmail) throws Exception {
