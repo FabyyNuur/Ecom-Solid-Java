@@ -1,20 +1,42 @@
+import controllers.LightController;
+import controllers.SecurityController;
+import controllers.ThermostatController;
+import devices.IDevice;
+
+import java.util.List;
+
 public class SmartHomeApp {
+    private final LightController lightController;
+    private final ThermostatController thermostatController;
+    private final SecurityController securityController;
+    private final List<IDevice> devices;
+
+    public SmartHomeApp(LightController lightController,
+                        ThermostatController thermostatController,
+                        SecurityController securityController,
+                        List<IDevice> devices) {
+        this.lightController = lightController;
+        this.thermostatController = thermostatController;
+        this.securityController = securityController;
+        this.devices = devices;
+    }
+
     public void turnOnLight(String room) {
-        System.out.println("Lumière allumée dans : " + room);
+        lightController.turnOn(room);
     }
 
     public void setTemperature(float temp) {
-        System.out.println("Thermostat réglé sur " + temp + "°C");
+        thermostatController.setTemperature(temp);
     }
 
     public void lockDoors() {
-        System.out.println("Portes verrouillées.");
+        securityController.lockDoors();
     }
 
     public void turnOffAll() {
         System.out.println("Extinction globale...");
-        System.out.println("Lumières éteintes.");
-        System.out.println("Thermostat en mode éco.");
-        System.out.println("Alarme DÉSACTIVÉE (Faille de sécurité !).");
+        for (IDevice device : devices) {
+            device.turnOff();
+        }
     }
 }

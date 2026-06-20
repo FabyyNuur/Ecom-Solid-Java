@@ -1,8 +1,28 @@
+import controllers.LightController;
+import controllers.SecurityController;
+import controllers.ThermostatController;
+import devices.IDevice;
+import devices.LightDevice;
+import devices.SecurityAlarmDevice;
+import devices.ThermostatDevice;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        SmartHomeApp app = new SmartHomeApp();
+        LightController lightController = new LightController();
+        ThermostatController thermostatController = new ThermostatController();
+        SecurityController securityController = new SecurityController();
+        List<IDevice> devices = Arrays.asList(
+                new LightDevice(),
+                new ThermostatDevice(),
+                new SecurityAlarmDevice()
+        );
+        SmartHomeApp app = new SmartHomeApp(
+                lightController, thermostatController, securityController, devices);
+
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 

@@ -1,18 +1,30 @@
-## Getting Started
+# Smart Home SOLID — Java
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Refactoring de l'exercice 2 (domotique) avec **SRP** et **OCP**.
 
-## Folder Structure
+## Lancer
 
-The workspace contains two folders by default, where:
+Exécuter `App.java` depuis VS Code ou :
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+```bash
+javac -d bin src/controllers/*.java src/devices/*.java src/SmartHomeApp.java src/App.java
+java -cp bin App
+```
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Structure
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+```
+src/
+├── SmartHomeApp.java
+├── controllers/
+│   ├── LightController.java       (SRP)
+│   ├── ThermostatController.java  (SRP)
+│   └── SecurityController.java    (SRP)
+└── devices/
+    ├── IDevice.java               (OCP)
+    ├── LightDevice.java
+    ├── ThermostatDevice.java
+    └── SecurityAlarmDevice.java
+```
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Les principes LSP, ISP et DIP seront abordés dans un module ultérieur.
