@@ -16,7 +16,7 @@ public class OrderManager {
         this.orderCompletionService = orderCompletionService;
     }
 
-    public void processOrder(Order order, IDiscountStrategy discountStrategy) throws Exception {
+    public void processOrder(Order order, IDiscountStrategy discountStrategy) {
         stockService.fulfill(order);
         float total = pricingService.calculateTotal(order, discountStrategy);
         orderCompletionService.complete(order, total);

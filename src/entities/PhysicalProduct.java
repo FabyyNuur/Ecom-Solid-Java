@@ -9,14 +9,14 @@ public class PhysicalProduct extends Product implements IPhysicalProduct {
     }
 
     @Override
-    public void checkStock(int quantity) throws Exception {
+    public void checkStock(int quantity) {
         if (stock < quantity) {
-            throw new Exception("Stock insuffisant pour " + name);
+            throw new IllegalStateException("Stock insuffisant pour " + name);
         }
     }
 
     @Override
-    public void deductStock(int quantity) throws Exception {
+    public void deductStock(int quantity) {
         checkStock(quantity);
         stock -= quantity;
     }

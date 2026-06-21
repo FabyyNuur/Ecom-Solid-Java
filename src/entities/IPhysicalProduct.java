@@ -2,7 +2,7 @@ package entities;
 
 
 public interface IPhysicalProduct extends IProduct, IShippable {
-    void checkStock(int quantity) throws Exception;
-    void deductStock(int quantity) throws Exception;
+    void checkStock(int quantity);
+    void deductStock(int quantity);
     String getStockDisplay();
 }
