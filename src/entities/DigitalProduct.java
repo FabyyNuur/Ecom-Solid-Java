@@ -1,21 +1,23 @@
 package entities;
 
 
-public class DigitalProduct extends Product {
+public class DigitalProduct implements IDigitalProduct {
+    private final String name;
+    private final float price;
+
     public DigitalProduct(String name, float price) {
-        super(name, price);
+        this.name = name;
+        this.price = price;
     }
 
     @Override
-    public void checkStock(int quantity) {
-    }
+    public String getName() { return name; }
 
     @Override
-    public void deductStock(int quantity) {
-    }
+    public float getPrice() { return price; }
 
     @Override
-    public String getStockDisplay() {
-        return "∞";
+    public String toString() {
+        return "Produit : " + name + " | Prix : " + price + "€ | Stock : ∞";
     }
 }

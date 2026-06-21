@@ -4,22 +4,22 @@ import entities.Order;
 import repositories.IOrderRepository;
 
 public class OrderCompletionService {
-    private final InvoiceGenerator invoiceGenerator;
-    private final NotificationService notificationService;
+    private final IInvoiceService invoiceService;
+    private final IEmailSender emailSender;
     private final IOrderRepository orderRepository;
 
-    public OrderCompletionService(InvoiceGenerator invoiceGenerator,
-                                  NotificationService notificationService,
+    public OrderCompletionService(IInvoiceService invoiceService,
+                                  IEmailSender emailSender,
                                   IOrderRepository orderRepository) {
-        this.invoiceGenerator = invoiceGenerator;
-        this.notificationService = notificationService;
+        this.invoiceService = invoiceService;
+        this.emailSender = emailSender;
         this.orderRepository = orderRepository;
     }
 
     public void complete(Order order, float total) {
         String userEmail = order.getClient().getEmail();
-        invoiceGenerator.generatePdfInvoice(userEmail, total);
-        notificationService.sendEmail(userEmail, "Votre commande de " + total + "€ est confirmée. Merci pour votre achat ! \n");
+        invoiceService.generatePdfInvoice(userEmail, total);
+        emailSender.sendEmail(userEmail, "Votre commande de " + total + "€ est confirmée. Merci pour votre achat ! \n");
         orderRepository.save(order);
     }
 }

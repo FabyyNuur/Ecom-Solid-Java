@@ -12,7 +12,7 @@ public class Order {
         this.client = client;
     }
 
-    public void addLine(Product product, int quantity) {
+    public void addLine(IProduct product, int quantity) {
         lines.add(new OrderLine(product, quantity));
     }
 

@@ -1,15 +1,15 @@
 package entities;
 
 public class OrderLine {
-    private final Product product;
+    private final IProduct product;
     private final int quantity;
 
-    public OrderLine(Product product, int quantity) {
+    public OrderLine(IProduct product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
+    public IProduct getProduct() {
         return product;
     }
 

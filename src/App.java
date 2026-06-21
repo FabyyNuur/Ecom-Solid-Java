@@ -7,9 +7,10 @@ import discount.StudentDiscountStrategy;
 import discount.VipDiscountStrategy;
 import entities.Client;
 import entities.DigitalProduct;
+import entities.IProduct;
 import entities.Order;
+import entities.IPhysicalProduct;
 import entities.PhysicalProduct;
-import entities.Product;
 import repositories.IOrderRepository;
 import repositories.impl.OrderRepositoryImpl;
 import services.InvoiceGenerator;
@@ -30,7 +31,7 @@ public class App {
         StockService stockService = new StockService();
         OrderManager orderManager = new OrderManager(stockService, pricingService, orderCompletionService);
 
-        Product[] catalog = {
+        IProduct[] catalog = {
             new PhysicalProduct("Laptop", 999.99f, 10),
             new DigitalProduct("Guide PDF SOLID", 19.99f)
         };
@@ -78,13 +79,15 @@ public class App {
                     if (productChoice < 1 || productChoice > catalog.length) {
                         throw new IllegalArgumentException("Choix de produit invalide : " + productChoice);
                     }
-                    Product product = catalog[productChoice - 1];
+                    IProduct product = catalog[productChoice - 1];
 
                     System.out.print("Entrez la quantite : ");
                     int quantity = scanner.nextInt();
                     scanner.nextLine();
 
-                    product.checkStock(quantity);
+                    if (product instanceof IPhysicalProduct physical) {
+                        physical.checkStock(quantity);
+                    }
 
                     System.out.println("Type de reduction :");
                     for (int j = 0; j < discountLabels.length; j++) {
