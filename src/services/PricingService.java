@@ -2,9 +2,9 @@ package services;
 
 import discount.IDiscountStrategy;
 import entities.IShippable;
+import entities.order.Order;
+import entities.order.OrderLine;
 import entities.IProduct;
-import entities.Order;
-import entities.OrderLine;
 
 public class PricingService {
     public float calculateTotal(Order order, IDiscountStrategy discountStrategy) {

@@ -1,4 +1,6 @@
-package entities;
+package entities.order;
+
+import entities.IProduct;
 
 public class OrderLine {
     private final IProduct product;

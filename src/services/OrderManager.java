@@ -1,7 +1,7 @@
 package services;
 
 import discount.IDiscountStrategy;
-import entities.Order;
+import entities.order.Order;
 
 public class OrderManager {
     private final StockService stockService;

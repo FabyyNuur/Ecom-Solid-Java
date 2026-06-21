@@ -1,8 +1,11 @@
-package entities;
+package entities.order;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import entities.Client;
+import entities.IProduct;
 
 public class Order {
     private final Client client;

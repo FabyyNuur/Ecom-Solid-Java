@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import entities.order.Order;
+
 public class Client {
     private final String email;
     private final List<Order> orders = new ArrayList<>();

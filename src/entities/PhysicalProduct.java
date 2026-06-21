@@ -1,21 +1,12 @@
 package entities;
 
-public class PhysicalProduct implements IPhysicalProduct {
-    private final String name;
-    private final float price;
+public class PhysicalProduct extends Product implements IPhysicalProduct {
     private int stock;
 
     public PhysicalProduct(String name, float price, int stock) {
-        this.name = name;
-        this.price = price;
+        super(name, price);
         this.stock = stock;
     }
-
-    @Override
-    public String getName() { return name; }
-
-    @Override
-    public float getPrice() { return price; }
 
     @Override
     public void checkStock(int quantity) throws Exception {

@@ -1,8 +1,8 @@
 package services;
 
 import entities.IPhysicalProduct;
-import entities.Order;
-import entities.OrderLine;
+import entities.order.Order;
+import entities.order.OrderLine;
 
 public class StockService {
     public void fulfill(Order order) throws Exception {

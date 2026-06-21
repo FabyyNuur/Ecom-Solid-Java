@@ -1,6 +1,6 @@
 package services;
 
-import entities.Order;
+import entities.order.Order;
 import repositories.IOrderRepository;
 
 public class OrderCompletionService {

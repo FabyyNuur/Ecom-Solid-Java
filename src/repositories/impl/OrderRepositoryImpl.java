@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import entities.Order;
+import entities.order.Order;
 import repositories.IOrderRepository;
 
 public class OrderRepositoryImpl implements IOrderRepository {
