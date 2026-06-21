@@ -32,15 +32,6 @@ public class Order {
         return subtotal;
     }
 
-    public void fulfillStock() throws Exception {
-        for (OrderLine line : lines) {
-            line.getProduct().checkStock(line.getQuantity());
-        }
-        for (OrderLine line : lines) {
-            line.getProduct().deductStock(line.getQuantity());
-        }
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
