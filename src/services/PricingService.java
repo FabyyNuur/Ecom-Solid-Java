@@ -1,9 +1,9 @@
 package services;
 
 import discount.IDiscountStrategy;
-import entities.IShippable;
 import entities.order.Order;
 import entities.order.OrderLine;
+import entities.IPhysicalProduct;
 import entities.IProduct;
 
 public class PricingService {
@@ -16,8 +16,8 @@ public class PricingService {
         float shipping = 0;
         for (OrderLine line : order.getLines()) {
             IProduct product = line.getProduct();
-            if (product instanceof IShippable shippable) {
-                shipping += shippable.calculateShippingCost() * line.getQuantity();
+            if (product instanceof IPhysicalProduct physical) {
+                shipping += physical.calculateShippingCost() * line.getQuantity();
             }
         }
         return shipping;
