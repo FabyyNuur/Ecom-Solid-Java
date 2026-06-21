@@ -1,30 +1,21 @@
 package services;
 
 import discount.IDiscountStrategy;
-import entities.Product;
+import entities.Order;
 
 public class OrderManager {
-    private final InventoryManager inventoryManager;
-    private final InvoiceGenerator invoiceGenerator;
-    private final NotificationService notificationService;
+    private final PricingService pricingService;
+    private final OrderCompletionService orderCompletionService;
 
-    public OrderManager(InventoryManager inventoryManager,
-                        InvoiceGenerator invoiceGenerator,
-                        NotificationService notificationService) {
-        this.inventoryManager = inventoryManager;
-        this.invoiceGenerator = invoiceGenerator;
-        this.notificationService = notificationService;
+    public OrderManager(PricingService pricingService,
+                        OrderCompletionService orderCompletionService) {
+        this.pricingService = pricingService;
+        this.orderCompletionService = orderCompletionService;
     }
 
-    public void processOrder(Product product, int quantity,
-                             IDiscountStrategy discountStrategy, String userEmail) throws Exception {
-        inventoryManager.checkStock(product, quantity);
-
-        float subtotal = product.price * quantity;
-        float total = discountStrategy.applyDiscount(subtotal);
-
-        inventoryManager.deductStock(product, quantity);
-        invoiceGenerator.generatePdfInvoice(userEmail, total);
-        notificationService.sendEmail(userEmail, "Votre commande de " + total + "€ est confirmée. Merci pour votre achat ! \n");
+    public void processOrder(Order order, IDiscountStrategy discountStrategy) throws Exception {
+        order.fulfillStock();
+        float total = pricingService.calculateTotal(order, discountStrategy);
+        orderCompletionService.complete(order, total);
     }
 }

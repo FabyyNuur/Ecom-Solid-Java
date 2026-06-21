@@ -1,0 +1,54 @@
+package entities;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Order {
+    private final Client client;
+    private final List<OrderLine> lines = new ArrayList<>();
+
+    public Order(Client client) {
+        this.client = client;
+    }
+
+    public void addLine(Product product, int quantity) {
+        lines.add(new OrderLine(product, quantity));
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public List<OrderLine> getLines() {
+        return Collections.unmodifiableList(lines);
+    }
+
+    public float getSubtotal() {
+        float subtotal = 0;
+        for (OrderLine line : lines) {
+            subtotal += line.getSubtotal();
+        }
+        return subtotal;
+    }
+
+    public void fulfillStock() throws Exception {
+        for (OrderLine line : lines) {
+            line.getProduct().checkStock(line.getQuantity());
+        }
+        for (OrderLine line : lines) {
+            line.getProduct().deductStock(line.getQuantity());
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Commande | Client : ").append(client.getEmail())
+                .append(" | Sous-total : ").append(getSubtotal()).append("€");
+        for (OrderLine line : lines) {
+            sb.append("\n   - ").append(line);
+        }
+        return sb.toString();
+    }
+}

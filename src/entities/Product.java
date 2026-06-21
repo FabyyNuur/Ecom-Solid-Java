@@ -1,9 +1,9 @@
 package entities;
 
 public class Product {
-    public String name;
-    public float price;
-    public int stock;
+    private String name;
+    private float price;
+    private int stock;
 
     public Product(String name, float price, int stock) {
         this.name = name;
@@ -31,12 +31,19 @@ public class Product {
         return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void checkStock(int quantity) throws Exception {
+        if (stock < quantity) {
+            throw new Exception("Stock insuffisant pour " + name);
+        }
+    }
+
+    public void deductStock(int quantity) throws Exception {
+        checkStock(quantity);
+        this.stock -= quantity;
     }
 
     @Override
     public String toString() {
-        return "Product [name=" + name + ", price=" + price + ", stock=" + stock + "]";
+        return "Produit : " + name + " | Prix : " + price + "€ | Stock : " + stock;
     }
 }
