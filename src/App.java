@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
+import discount.BlackFridayDiscountStrategy;
+import discount.IDiscountStrategy;
+import discount.StudentDiscountStrategy;
+import discount.VipDiscountStrategy;
 import entity.Product;
 import services.InventoryManager;
 import services.InvoiceGenerator;
 import services.NotificationService;
 import services.OrderManager;
-import services.discount.BlackFridayDiscountStrategy;
-import services.discount.IDiscountStrategy;
-import services.discount.StudentDiscountStrategy;
-import services.discount.VipDiscountStrategy;
 
 public class App {
     public static void main(String[] args) throws Exception {

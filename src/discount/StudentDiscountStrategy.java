@@ -1,4 +1,4 @@
-package services.discount;
+package discount;
 
 public class StudentDiscountStrategy implements IDiscountStrategy {
     @Override
