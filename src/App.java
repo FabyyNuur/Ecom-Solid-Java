@@ -13,8 +13,10 @@ import entities.IPhysicalProduct;
 import entities.PhysicalProduct;
 import repositories.IOrderRepository;
 import repositories.impl.OrderRepositoryImpl;
+import services.IEmailSender;
+import services.IInvoiceService;
 import services.InvoiceGenerator;
-import services.NotificationService;
+import services.EmailNotificationService;
 import services.OrderCompletionService;
 import services.OrderManager;
 import services.PricingService;
@@ -24,10 +26,10 @@ public class App {
     public static void main(String[] args) {
         IOrderRepository orderRepository = new OrderRepositoryImpl();
         PricingService pricingService = new PricingService();
-        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
-        NotificationService notificationService = new NotificationService();
+        IInvoiceService invoiceService = new InvoiceGenerator();
+        IEmailSender emailSender = new EmailNotificationService();
         OrderCompletionService orderCompletionService = new OrderCompletionService(
-                invoiceGenerator, notificationService, orderRepository);
+                invoiceService, emailSender, orderRepository);
         StockService stockService = new StockService();
         OrderManager orderManager = new OrderManager(stockService, pricingService, orderCompletionService);
 
