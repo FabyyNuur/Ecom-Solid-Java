@@ -33,7 +33,7 @@ public class App {
                 try {
                     System.out.println("Entrez la quantite");
                     int quantity = scanner.nextInt();
-                    System.out.println("Type de reduction (VIP/BLACK_FRIDAY/STUDENT)");
+                    System.out.println("Type de reduction (VIP/BLACK_FRIDAY)");
                     String discountType = scanner.next();
                     System.out.println("Entrez l'email du client");
                     String userEmail = scanner.next();
@@ -43,8 +43,8 @@ public class App {
                         strategy = new VipDiscountStrategy();
                     } else if (discountType.equals("BLACK_FRIDAY")) {
                         strategy = new BlackFridayDiscountStrategy();
-                    } else if (discountType.equals("STUDENT")) {
-                        strategy = new StudentDiscountStrategy();
+                    // } else if (discountType.equals("STUDENT")) {
+                    //     strategy = new StudentDiscountStrategy();
                     } else {
                         strategy = new VipDiscountStrategy();
                     }
