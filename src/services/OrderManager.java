@@ -1,7 +1,7 @@
 package services;
 
 import discount.IDiscountStrategy;
-import entity.Product;
+import entities.Product;
 
 public class OrderManager {
     private final InventoryManager inventoryManager;

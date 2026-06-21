@@ -1,6 +1,6 @@
 package services;
 
-import entity.Product;
+import entities.Product;
 
 public class InventoryManager {
     public void checkStock(Product product, int quantity) throws Exception {

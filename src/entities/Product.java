@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 public class Product {
     public String name;

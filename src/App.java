@@ -4,7 +4,7 @@ import discount.BlackFridayDiscountStrategy;
 import discount.IDiscountStrategy;
 import discount.StudentDiscountStrategy;
 import discount.VipDiscountStrategy;
-import entity.Product;
+import entities.Product;
 import services.InventoryManager;
 import services.InvoiceGenerator;
 import services.NotificationService;
