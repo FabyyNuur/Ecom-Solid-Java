@@ -4,7 +4,7 @@ public class PhysicalProduct extends Product {
     private int stock;
 
     public PhysicalProduct(String name, float price, int stock) {
-        super(name, price, ProductType.PHYSICAL);
+        super(name, price);
         this.stock = stock;
     }
 
