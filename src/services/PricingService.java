@@ -4,7 +4,7 @@ import discount.IDiscountStrategy;
 import entities.IShippable;
 import entities.order.Order;
 import entities.order.OrderLine;
-import entities.IProduct;
+import entities.Product;
 
 public class PricingService {
     public float calculateTotal(Order order, IDiscountStrategy discountStrategy) {
@@ -15,7 +15,7 @@ public class PricingService {
     private float calculateShipping(Order order) {
         float shipping = 0;
         for (OrderLine line : order.getLines()) {
-            IProduct product = line.getProduct();
+            Product product = line.getProduct();
             if (product instanceof IShippable shippable) {
                 shipping += shippable.calculateShippingCost() * line.getQuantity();
             }

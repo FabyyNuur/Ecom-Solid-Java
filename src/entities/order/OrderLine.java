@@ -1,17 +1,17 @@
 package entities.order;
 
-import entities.IProduct;
+import entities.Product;
 
 public class OrderLine {
-    private final IProduct product;
+    private final Product product;
     private final int quantity;
 
-    public OrderLine(IProduct product, int quantity) {
+    public OrderLine(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }
 
-    public IProduct getProduct() {
+    public Product getProduct() {
         return product;
     }
 

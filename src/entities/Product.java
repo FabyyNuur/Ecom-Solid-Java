@@ -1,6 +1,6 @@
 package entities;
 
-public abstract class Product implements IProduct {
+public abstract class Product {
     protected String name;
     protected float price;
 
@@ -9,9 +9,11 @@ public abstract class Product implements IProduct {
         this.price = price;
     }
 
-    @Override
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    @Override
-    public float getPrice() { return price; }
+    public float getPrice() {
+        return price;
+    }
 }

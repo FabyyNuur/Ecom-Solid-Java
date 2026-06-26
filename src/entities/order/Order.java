@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import entities.Client;
-import entities.IProduct;
+import entities.Product;
 
 public class Order {
     private final Client client;
@@ -15,7 +15,7 @@ public class Order {
         this.client = client;
     }
 
-    public void addLine(IProduct product, int quantity) {
+    public void addLine(Product product, int quantity) {
         lines.add(new OrderLine(product, quantity));
     }
 
