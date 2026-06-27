@@ -10,6 +10,7 @@ import entities.Product;
 public class Order {
     private final Client client;
     private final List<OrderLine> lines = new ArrayList<>();
+    private Float total;
 
     public Order(Client client) {
         this.client = client;
@@ -35,11 +36,27 @@ public class Order {
         return subtotal;
     }
 
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+    public float getTotal() {
+        return total != null ? total : getSubtotal();
+    }
+
+    public boolean isFinalized() {
+        return total != null;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Commande | Client : ").append(client.getEmail())
-                .append(" | Sous-total : ").append(getSubtotal()).append("€");
+        sb.append("Commande | Client : ").append(client.getEmail());
+        if (isFinalized()) {
+            sb.append(" | Total : ").append(total).append("€");
+        } else {
+            sb.append(" | Sous-total : ").append(getSubtotal()).append("€");
+        }
         for (OrderLine line : lines) {
             sb.append("\n   - ").append(line);
         }

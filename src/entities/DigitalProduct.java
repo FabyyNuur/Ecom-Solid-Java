@@ -8,6 +8,6 @@ public class DigitalProduct extends Product {
 
     @Override
     public String toString() {
-        return "Produit : " + name + " | Prix : " + price + "€ | Stock : ∞";
+        return "Produit : " + name + " | Prix : " + price + "€ | Stock : " + getStockDisplay();
     }
 }

@@ -1,43 +1,28 @@
 import java.util.List;
 import java.util.Scanner;
 
+import config.ApplicationFactory;
 import discount.BlackFridayDiscountStrategy;
 import discount.IDiscountStrategy;
 import discount.StudentDiscountStrategy;
 import discount.VipDiscountStrategy;
 import entities.Client;
 import entities.DigitalProduct;
-import entities.IPhysicalProduct;
 import entities.PhysicalProduct;
 import entities.Product;
 import entities.order.Order;
 import repositories.IOrderRepository;
-import repositories.impl.OrderRepositoryImpl;
-import services.IEmailSender;
-import services.IInvoiceService;
-import services.InvoiceGenerator;
-import services.EmailNotificationService;
-import services.OrderCompletionService;
 import services.OrderManager;
-import services.PricingService;
-import services.StockService;
 
 public class App {
     public static void main(String[] args) {
-        IOrderRepository orderRepository = new OrderRepositoryImpl();
-        PricingService pricingService = new PricingService();
-        IInvoiceService invoiceService = new InvoiceGenerator();
-        IEmailSender emailSender = new EmailNotificationService();
-        OrderCompletionService orderCompletionService = new OrderCompletionService(
-                invoiceService, emailSender, orderRepository);
-        StockService stockService = new StockService();
-        OrderManager orderManager = new OrderManager(stockService, pricingService, orderCompletionService);
+        IOrderRepository orderRepository = ApplicationFactory.createOrderRepository();
+        OrderManager orderManager = ApplicationFactory.createOrderManager(orderRepository);
 
         Product[] catalog = {
             new PhysicalProduct("Laptop", 999.99f, 10),
             new DigitalProduct("Guide PDF SOLID", 19.99f)
         };
-        Scanner scanner = new Scanner(System.in);
 
         IDiscountStrategy[] discountStrategies = {
             new VipDiscountStrategy(),
@@ -45,6 +30,16 @@ public class App {
             new StudentDiscountStrategy()
         };
         String[] discountLabels = {"VIP", "BLACK_FRIDAY", "STUDENT"};
+
+        runConsole(orderManager, orderRepository, catalog, discountStrategies, discountLabels);
+    }
+
+    private static void runConsole(OrderManager orderManager,
+                                   IOrderRepository orderRepository,
+                                   Product[] catalog,
+                                   IDiscountStrategy[] discountStrategies,
+                                   String[] discountLabels) {
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Entrez l'email du client : ");
         Client client = new Client(scanner.nextLine().trim());
@@ -87,10 +82,6 @@ public class App {
                     int quantity = scanner.nextInt();
                     scanner.nextLine();
 
-                    if (product instanceof IPhysicalProduct physical) {
-                        physical.checkStock(quantity);
-                    }
-
                     System.out.println("Type de reduction :");
                     for (int j = 0; j < discountLabels.length; j++) {
                         System.out.println((j + 1) + "- " + discountLabels[j]);
@@ -105,7 +96,6 @@ public class App {
 
                     Order order = new Order(client);
                     order.addLine(product, quantity);
-                    client.addOrder(order);
                     orderManager.processOrder(order, strategy);
 
                     System.out.println("Commande traitee avec succes.");

@@ -16,4 +16,20 @@ public abstract class Product {
     public float getPrice() {
         return price;
     }
+
+    public void checkStock(int quantity) {
+        // Produits sans stock physique : rien à vérifier
+    }
+
+    public void deductStock(int quantity) {
+        // Produits sans stock physique : rien à déduire
+    }
+
+    public float getShippingCost(int quantity) {
+        return 0f;
+    }
+
+    public String getStockDisplay() {
+        return "∞";
+    }
 }

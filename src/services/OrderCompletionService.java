@@ -3,7 +3,7 @@ package services;
 import entities.order.Order;
 import repositories.IOrderRepository;
 
-public class OrderCompletionService {
+public class OrderCompletionService implements IOrderCompletionService {
     private final IInvoiceService invoiceService;
     private final IEmailSender emailSender;
     private final IOrderRepository orderRepository;
@@ -16,7 +16,9 @@ public class OrderCompletionService {
         this.orderRepository = orderRepository;
     }
 
+    @Override
     public void complete(Order order, float total) {
+        order.setTotal(total);
         String userEmail = order.getClient().getEmail();
         invoiceService.generatePdfInvoice(userEmail, total);
         emailSender.sendEmail(userEmail, "Votre commande de " + total + "€ est confirmée. Merci pour votre achat ! \n");

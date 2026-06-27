@@ -1,20 +1,20 @@
 package services;
 
-import entities.IPhysicalProduct;
 import entities.order.Order;
 import entities.order.OrderLine;
 
-public class StockService {
-    public void fulfill(Order order) {
+public class StockService implements IStockService {
+    @Override
+    public void checkAvailability(Order order) {
         for (OrderLine line : order.getLines()) {
-            if (line.getProduct() instanceof IPhysicalProduct physical) {
-                physical.checkStock(line.getQuantity());
-            }
+            line.getProduct().checkStock(line.getQuantity());
         }
+    }
+
+    @Override
+    public void deductStock(Order order) {
         for (OrderLine line : order.getLines()) {
-            if (line.getProduct() instanceof IPhysicalProduct physical) {
-                physical.deductStock(line.getQuantity());
-            }
+            line.getProduct().deductStock(line.getQuantity());
         }
     }
 }

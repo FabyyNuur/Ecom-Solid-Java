@@ -32,6 +32,11 @@ public class PhysicalProduct extends Product implements IPhysicalProduct {
     }
 
     @Override
+    public float getShippingCost(int quantity) {
+        return calculateShippingCost() * quantity;
+    }
+
+    @Override
     public String toString() {
         return "Produit : " + name + " | Prix : " + price + "€ | Stock : " + getStockDisplay();
     }

@@ -4,21 +4,23 @@ import discount.IDiscountStrategy;
 import entities.order.Order;
 
 public class OrderManager {
-    private final StockService stockService;
-    private final PricingService pricingService;
-    private final OrderCompletionService orderCompletionService;
+    private final IStockService stockService;
+    private final IPricingService pricingService;
+    private final IOrderCompletionService orderCompletionService;
 
-    public OrderManager(StockService stockService,
-                        PricingService pricingService,
-                        OrderCompletionService orderCompletionService) {
+    public OrderManager(IStockService stockService,
+                        IPricingService pricingService,
+                        IOrderCompletionService orderCompletionService) {
         this.stockService = stockService;
         this.pricingService = pricingService;
         this.orderCompletionService = orderCompletionService;
     }
 
     public void processOrder(Order order, IDiscountStrategy discountStrategy) {
-        stockService.fulfill(order);
+        stockService.checkAvailability(order);
         float total = pricingService.calculateTotal(order, discountStrategy);
         orderCompletionService.complete(order, total);
+        stockService.deductStock(order);
+        order.getClient().addOrder(order);
     }
 }
