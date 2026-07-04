@@ -1,0 +1,3 @@
+# Un ou plusieurs canaux de notification email
+IEmailSender:
+  - ecom.services.notification.EmailNotificationService

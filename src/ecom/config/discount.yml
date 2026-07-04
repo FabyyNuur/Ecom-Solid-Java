@@ -1,0 +1,4 @@
+# Mapping type de reduction -> implementation concrete
+VIP: ecom.discount.VipDiscountStrategy
+BLACK_FRIDAY: ecom.discount.BlackFridayDiscountStrategy
+STUDENT: ecom.discount.StudentDiscountStrategy

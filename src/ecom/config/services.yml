@@ -1,0 +1,5 @@
+# Implementations des services (instanciation par reflexion)
+IOrderRepository: ecom.repositories.OrderRepositoryImpl
+IPricingService: ecom.services.PricingService
+IInvoiceService: ecom.services.InvoiceGenerator
+IStockService: ecom.services.StockService
